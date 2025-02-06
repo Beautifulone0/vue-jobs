@@ -32,22 +32,39 @@ const deleteJob = async () => {
   }
 }
 
+onMounted(async () => {
+  try {
+    // Ensure you're using the correct API endpoint
+    const response = await axios.get(`/api/jobs/${jobId}`);
+    if (response.data) {
+      state.job = response.data;
+    } else {
+      toast.error("Job not found.");
+    }
+  } catch (error) {
+    console.error("Error fetching job", error);
+    toast.error("Failed to load job details. Please try again later.");
+  } finally {
+    state.isLoading = false;
+  }
+});
 
 // const state = reactive({
 //   jobs: [],
 //   isLoading: true
 // });
 
-onMounted(async () => {
-  try {
-    const response = await axios.get(`/api/jobs/${jobId}`); // Fetch from API route
-    state.job = response.data;
-  } catch (error) {
-    console.error("Error fetching jobs:", error);
-  } finally {
-    state.isLoading = false;
-  }
-});
+// onMounted(async () => {
+//   try {
+//     const response = await axios.get(`/api/jobs/${jobId}`);
+//     const response = await axios.get(`/api/jobs/${jobId}`); // Fetch from API route
+//     state.job = response.data;
+//   } catch (error) {
+//     console.error("Error fetching jobs:", error);
+//   } finally {
+//     state.isLoading = false;
+//   }
+// });
 // onMounted(async () => {
 //   try {
 //     const response = await axios.get(`/api/jobs/${jobId}`);
