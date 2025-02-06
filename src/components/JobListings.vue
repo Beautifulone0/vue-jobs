@@ -13,22 +13,37 @@ defineProps({
   }
 })
 
-
 const state = reactive({
-  jobs: [],  
+  jobs: [],
   isLoading: true
-})
+});
 
 onMounted(async () => {
   try {
-    const response = await axios.get("/api/jobs") 
-    state.jobs = response.data; 
-    state.isLoading = false; 
+    const response = await axios.get("/api/jobs"); // Fetch from API route
+    state.jobs = response.data;
   } catch (error) {
-    console.error('Error fetching jobs', error)
+    console.error("Error fetching jobs:", error);
+  } finally {
     state.isLoading = false;
   }
-})
+});
+
+// const state = reactive({
+//   jobs: [],  
+//   isLoading: true
+// })
+
+// onMounted(async () => {
+//   try {
+//     const response = await axios.get("/api/jobs") 
+//     state.jobs = response.data; 
+//     state.isLoading = false; 
+//   } catch (error) {
+//     console.error('Error fetching jobs', error)
+//     state.isLoading = false;
+//   }
+// })
 </script>
 
 <template>

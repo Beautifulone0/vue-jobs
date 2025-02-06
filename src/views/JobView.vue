@@ -32,16 +32,32 @@ const deleteJob = async () => {
   }
 }
 
+
+// const state = reactive({
+//   jobs: [],
+//   isLoading: true
+// });
+
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/jobs/${jobId}`);
+    const response = await axios.get(`/api/jobs/${jobId}`); // Fetch from API route
     state.job = response.data;
-    state.isLoading = false;
   } catch (error) {
-    console.error("Error fetching job", error);
+    console.error("Error fetching jobs:", error);
+  } finally {
     state.isLoading = false;
   }
 });
+// onMounted(async () => {
+//   try {
+//     const response = await axios.get(`/api/jobs/${jobId}`);
+//     state.job = response.data;
+//     state.isLoading = false;
+//   } catch (error) {
+//     console.error("Error fetching job", error);
+//     state.isLoading = false;
+//   }
+// });
 </script>
 
 <template>
